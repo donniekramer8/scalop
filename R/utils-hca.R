@@ -12,7 +12,8 @@
     method = match.arg(method, scalop::dist.methods)
     if (!is_square(m)) m = t(m)
     if (!is.null(max.dist)) {
-        if (is_square(m) && unique(diag(m)) != max.dist) {
+        # if (is_square(m) && unique(diag(m)) != max.dist) {
+        if (is_square(m) && any(unique(diag(m)) != max.dist)) {
             warning("<max.dist> = ", max.dist, " but <m> diagonal = ", unique(diag(m)), "...")
         }
         m = max.dist - m
@@ -78,7 +79,8 @@
 
     res = c()
 
-    if (class(x) == 'matrix') {
+    # if (class(x) == 'matrix') {
+    if (inherits(x, "matrix")) {
         x = .hca_cor(x, method = cor.method)
         res = c(res, list(cr = x))
         if (cor.end) return(res)
